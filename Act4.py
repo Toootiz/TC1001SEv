@@ -57,10 +57,7 @@ def move():
 
     draw()
 
-    for target in targets:
-        if not inside(target):
-            return
-
+    # El juego nunca termina; continúa moviendo los balones
     ontimer(move, 50)
 
 setup(420, 420, 370, 0)

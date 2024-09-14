@@ -1,10 +1,15 @@
-from random import *
+from random import shuffle
 from turtle import *
 from freegames import path
 
+# Reemplaza los números con símbolos o emojis
+symbols = ['😀', '😎', '😃', '😅', '😉', '😍', '😘', '😜',
+           '🤓', '🥳', '😏', '😤', '🤖', '👽', '👾', '🧠',
+           '🌟', '🔥', '🌈', '🎵', '⚽', '🏀', '🎯', '🎲',
+           '🚗', '🚀', '🚁', '🛸', '⛵', '✈️', '🚂', '🏍️'] * 2
+
 car = path('car.gif')
-tiles = list(range(32)) * 2
-state = {'mark': None, 'taps': 0}  # Añade un contador de taps
+state = {'mark': None, 'taps': 0}
 hide = [True] * 64
 
 def square(x, y):
@@ -33,7 +38,7 @@ def tap(x, y):
     mark = state['mark']
     state['taps'] += 1  # Incrementa el contador de taps
 
-    if mark is None or mark == spot or tiles[mark] != tiles[spot]:
+    if mark is None or mark == spot or symbols[mark] != symbols[spot]:
         state['mark'] = spot
     else:
         hide[spot] = False
@@ -57,9 +62,9 @@ def draw():
     if mark is not None and hide[mark]:
         x, y = xy(mark)
         up()
-        goto(x + 2, y)
+        goto(x + 25, y + 10)  # Ajusta las coordenadas para centrar
         color('black')
-        write(tiles[mark], font=('Arial', 30, 'normal'))
+        write(symbols[mark], align="center", font=('Arial', 20, 'normal'))  # Centra el símbolo
 
     # Muestra el número de taps
     up()
@@ -76,7 +81,7 @@ def draw():
     update()
     ontimer(draw, 100)
 
-shuffle(tiles)
+shuffle(symbols)
 setup(420, 420, 370, 0)
 addshape(car)
 hideturtle()
